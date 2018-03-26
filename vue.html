@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.js"></script>
+    </head>
+    <title>shopping cart</title>
+
+    <body>
+        <div id="app">
+            Available Items:
+            <template v-for="item in items">
+              <item v-bind:name="item"></item>
+            </template>
+        </div>
+    </body>
+
+
+<script>
+  Vue.component("item",{
+    props: ['name'],
+    template: "<li>{{name}}</li>"
+  });
+
+  Vue.component("cart_item",{
+    props: ['name', 'number'],
+    template: "<li>{{name}} - {{number}}</li>"
+  });
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      items: ["item1", "item2", "item3", "item4"],
+      cart_items: [
+        {name: "item1", number: 2},
+        {name: "item2", number: 3}
+      ]
+    },
+    method:{
+      add_item: function (item, count) {
+        this.items.push({name: item, number: count})
+      }
+    },
+    component: "item"
+  })
+</script>
+
+</html>
